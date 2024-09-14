@@ -19,6 +19,8 @@ var user = [
 
 app.get("/", (req, res) => {
   const jhonKidneys = user[0].kidneys;
+  // console.log(jhonKidneys);
+  // console.log(req.body);
   const numberofKidneys = jhonKidneys.length;
   const numberOfHealthyKidneys = jhonKidneys.filter(
     (kidney) => kidney.healthy === true
@@ -32,8 +34,12 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
-  const { name, age } = req.query;
-  res.send(`Hello ${name}, you are ${age} years old.`);
+  // whenever someone hits a post request we will add a unhealthy kidney to the jhon because we are engineers not doctors
+  const ishealthy = req.body.ishealthy;
+  user[0].kidneys.push({ healthy: ishealthy });
+  res.json({
+    msg: "kidney added",
+  });
 });
 
 app.put("/", (req, res) => {
